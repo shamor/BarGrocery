@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/full_activity"
+    android:paddingRight="@dimen/full_activity"
+    android:paddingTop="@dimen/full_activity"
+    android:paddingBottom="@dimen/full_activity"
+    android:weightSum="1"
+    android:background="#ff0a85d8"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    tools:context="com.project.sam.bargrocery.ShoppingList">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+        android:text="@string/activity_shopping_list_promt"
+        android:id="@+id/shoplistText"
+        android:autoText="false"
+        android:textColor="#fffdaa15"
+        android:textSize="@dimen/header"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:typeface="sans"
+        android:padding="@dimen/full_activity"
+        android:gravity="center"
+    />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit List"
+        android:id="@+id/submitBtn"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="#fffdaa15"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:typeface="sans" />
+
+</RelativeLayout>

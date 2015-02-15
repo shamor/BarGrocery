@@ -1,0 +1,7 @@
+<resources>
+    <!-- Margins -->
+    <dimen name="full_activity">2dp</dimen>
+    <!-- Font size -->
+    <dimen name="header">34dp</dimen>
+    <dimen name="butttons">20dp</dimen>
+</resources>

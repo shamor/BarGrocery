@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BarGrocery</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_shopping_list">Shopping_List</string>
+    <string name="activity_shopping_list_promt">What would you like to buy today?</string>
+    <string name="title_activity_results">Results</string>
+    <string name="welcome">Welcome to BarGrocery</string>
+
+</resources>
