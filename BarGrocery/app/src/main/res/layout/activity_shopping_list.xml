@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
@@ -31,7 +32,7 @@
         android:typeface="sans"
         android:padding="@dimen/full_activity"
         android:gravity="center"
-    />
+        android:layout_marginBottom="10dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -49,5 +50,17 @@
         android:textSize="24dp"
         android:textStyle="bold"
         android:typeface="sans" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/shoplistText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/submitBtn"
+        android:id="@+id/relativeLayout">
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

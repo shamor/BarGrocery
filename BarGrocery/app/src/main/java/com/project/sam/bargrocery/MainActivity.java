@@ -23,8 +23,6 @@ public class MainActivity extends Activity {
         shopButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v){
-                // Do something in response to button click
-               // setContentView(R.layout.activity_shopping_list);
                 Intent intent = new Intent(getApplicationContext(), ShoppingList.class);
                 startActivity(intent);
             }
@@ -33,7 +31,6 @@ public class MainActivity extends Activity {
         reportButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v){
-                // Do something in response to button click
                 Toast.makeText(MainActivity.this, "Not implemted.", Toast.LENGTH_SHORT).show();
             }
         });

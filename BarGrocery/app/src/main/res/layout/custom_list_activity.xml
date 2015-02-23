@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:baselineAligned="true"
+        android:orientation="horizontal"
+        android:id="@+id/tableRow1">
+        android:background="#ff0a85d8">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/brandET"
+            android:hint="@string/brand"
+            android:background="#fff6ff9f"
+            android:inputType="text"
+            android:textColor="#ff000000"
+            android:textSize="24dp"
+            android:typeface="sans"
+            android:layout_column="0"
+            android:layout_weight="2"
+            android:padding="2dp"
+            android:focusable="true"
+            android:ems="4"
+            android:layout_marginRight="2dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/productET"
+            android:background="#fff0fff1"
+            android:hint="@string/product"
+            android:inputType="text"
+            android:typeface="sans"
+            android:textColor="#ff000000"
+            android:textSize="24dp"
+            android:layout_column="1"
+            android:layout_weight="3"
+            android:padding="2dp"
+            android:focusable="true"
+            android:ems="7"
+            android:layout_marginRight="2dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/numET"
+            android:background="#fff6ff9f"
+            android:hint="@string/num"
+            android:textColor="#ff000000"
+            android:typeface="sans"
+            android:textSize="24dp"
+            android:layout_column="2"
+            android:layout_weight="1"
+            android:padding="2dp"
+            android:focusable="true"
+            android:nestedScrollingEnabled="true"
+            android:ems="2"
+            android:layout_marginRight="2dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add"
+            android:id="@+id/addBtn"
+            android:background="#fffdaa15"
+            android:textAlignment="center"
+            android:textSize="24dp"
+            android:typeface="sans"
+            android:padding="2dp" />
+
+
+    </TableRow>
+
+
