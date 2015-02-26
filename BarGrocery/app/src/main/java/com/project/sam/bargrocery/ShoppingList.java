@@ -1,5 +1,7 @@
 package com.project.sam.bargrocery;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.graphics.Color;
@@ -11,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -25,7 +28,8 @@ import java.util.List;
 
 
 public class ShoppingList extends ActionBarActivity {
-List<EditText> editTexts = new ArrayList<EditText>();
+    List<EditText> editTexts = new ArrayList<EditText>();
+    private  MyListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +37,12 @@ List<EditText> editTexts = new ArrayList<EditText>();
         setContentView(R.layout.activity_shopping_list);
 
         //View Variables
-        //ScrollView sv = (ScrollView) findViewById(R.id.scrollView);
+        adapter = new MyListAdapter(this, R.layout.custom_list_activity);
+        ListView lv = (ListView) findViewById(R.id.listView);
+        lv.setAdapter(adapter);
+
+        adapter.add(editTexts);
+
 
         Button submitButton = (Button) findViewById(R.id.submitBtn);
 
@@ -50,19 +59,23 @@ List<EditText> editTexts = new ArrayList<EditText>();
 
 
     }//onCreate()
+    public void addRowhandler(View v){
+        adapter.add(editTexts);
+    }
 
     public void addRow(int id) {
-
+/*
         RelativeLayout rl = (RelativeLayout)findViewById(R.id.relativeLayout);
         RelativeLayout.LayoutParams newParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         EditText brand = new EditText(this);
-        brand.setHint("Brand");
         brand.setEms(5);
-        brand.setHeight(85);
+        brand.setHeight(96);
+        brand.setHint("Brand");
+        newParams.setMargins(0,0,6,12);
         brand.setBackgroundColor(Color.parseColor("#fffffce0"));
-       /**/ if(id!=1) {
+      if(id!=1) {
             newParams.addRule(RelativeLayout.BELOW, id-4);
         }
         brand.setLayoutParams(newParams);
@@ -75,10 +88,11 @@ List<EditText> editTexts = new ArrayList<EditText>();
         EditText product = new EditText(this);
         product.setHint("Product");
         product.setEms(7);
-        product.setHeight(85);
+        product.setHeight(96);
         product.setBackgroundColor(Color.parseColor("#fffff00f"));
+        newParams0.setMargins(0,0,6,12);
         newParams0.addRule(RelativeLayout.RIGHT_OF,id);
-       /* */if(id!=1) {
+       if(id!=1) {
             newParams0.addRule(RelativeLayout.BELOW, id-3);
         }
         product.setLayoutParams(newParams0);
@@ -91,11 +105,12 @@ List<EditText> editTexts = new ArrayList<EditText>();
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         EditText quant = new EditText(this);
         quant.setHint("#");
-        quant.setEms(3);
-        quant.setHeight(85);
+        quant.setEms(2);
+        quant.setHeight(96);
         quant.setBackgroundColor(Color.parseColor("#fffffce0"));
+        newParams1.setMargins(0,0,6,12);
         newParams1.addRule(RelativeLayout.RIGHT_OF,id+1);
-       /**/ if(id!=1) {
+        if(id!=1) {
             newParams1.addRule(RelativeLayout.BELOW, id-2);
         }
         quant.setLayoutParams(newParams1);
@@ -108,25 +123,24 @@ List<EditText> editTexts = new ArrayList<EditText>();
 
         Button addButton = new Button(this);
         addButton.setText("+");
-        addButton.setTextSize(12);
-        //addButton.setMaxHeight(50);
-       // addButton.setMaxWidth(50);
+        addButton.setTextSize(20);
         addButton.setBackgroundColor(Color.parseColor("#fffdaa15"));
+        newParams2.setMargins(0,0,6,12);
         newParams2.addRule(RelativeLayout.RIGHT_OF,id+2);
-       /**/ if(id!=1) {
+        if(id!=1) {
             newParams2.addRule(RelativeLayout.BELOW, id-1);
         }
         addButton.setLayoutParams(newParams2);
         addButton.setId(id+3);
         rl.addView(addButton);
-        
+
         final int id2 = id;
         addButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v){
                     addRow(id2+4);
             }
-        });
+        });*/
     }//addRow(int id)
 
     @Override
