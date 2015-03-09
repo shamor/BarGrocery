@@ -8,12 +8,13 @@
     android:paddingBottom="@dimen/full_activity" tools:context=".MainActivity"
     android:orientation="vertical"
     android:weightSum="1"
-    android:background="#ff0a85d8"
+    android:background="#fffff8e9"
     android:layout_alignParentRight="true"
     android:layout_alignParentEnd="true"
     android:layout_alignParentTop="true"
     android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true">
+    android:layout_alignParentStart="true"
+    android:clickable="false">
 
         <TextView
             android:layout_width="match_parent"
@@ -22,7 +23,7 @@
             android:text="@string/welcome"
             android:id="@+id/welcomeText"
             android:autoText="false"
-            android:textColor="#fffdaa15"
+            android:textColor="#ff0a85d8"
             android:textSize="@dimen/header"
             android:textStyle="bold"
             android:textAlignment="center"

@@ -23,25 +23,31 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ShoppingList extends ActionBarActivity {
-    List<EditText> editTexts = new ArrayList<EditText>();
+public class ShoppingList extends Activity {
+    MyListAdapter.MyHolder holder = new MyListAdapter.MyHolder();
+    List<MyListAdapter.MyHolder> rows = new ArrayList<MyListAdapter.MyHolder>();
     private  MyListAdapter adapter;
+    private int pos = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list);
+        ListView lv = (ListView) findViewById(R.id.listView);
+
+        //add a holder object to the listview
+
 
         //View Variables
-        adapter = new MyListAdapter(this, R.layout.custom_list_activity);
-        ListView lv = (ListView) findViewById(R.id.listView);
+        adapter = new MyListAdapter(this,rows,pos);
         lv.setAdapter(adapter);
-
-        adapter.add(editTexts);
+        adapter.add(holder);
 
 
         Button submitButton = (Button) findViewById(R.id.submitBtn);
@@ -60,8 +66,16 @@ public class ShoppingList extends ActionBarActivity {
 
     }//onCreate()
     public void addRowhandler(View v){
-        adapter.add(editTexts);
-    }
+
+        pos++;
+        adapter.add(holder);
+
+        MyListAdapter.MyHolder  h = ( MyListAdapter.MyHolder) adapter.getItem(adapter.getCount()-1);
+        String d = "n:" + adapter.getCount() + ".";
+
+        Toast.makeText(this, h.brand.getText().toString(), Toast.LENGTH_SHORT).show();
+       // adapter.notifyDataSetChanged();
+    }//addRowhandler(View v)
 
     public void addRow(int id) {
 /*
