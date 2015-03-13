@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -19,40 +20,53 @@ import java.util.List;
 public class MyListAdapter extends ArrayAdapter {
 
     private Context context;
-    private List<MyHolder> rowArray = new ArrayList<MyHolder>();
-    private int position;
+    MyHolder passedHolder = new MyHolder();
+    List<ShoppingList.stringHolder> rowlist = new ArrayList<ShoppingList.stringHolder>();
 
-    public MyListAdapter(Context context,  List<MyHolder> rowArray, int position) {
-        super(context, R.layout.custom_list_activity, rowArray);
+
+    public MyListAdapter(Context context, List<ShoppingList.stringHolder> rowlist  ) {//String[] values
+        super(context, R.layout.custom_list_activity2);
         this.context = context;
-        this.rowArray = rowArray;
-        this.position = position;
+        this.rowlist = rowlist;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        View row =  convertView;//inflater.inflate(R.layout.custom_list_activity, parent, false);
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);//((Activity) context).getLayoutInflater();
+        View row =  convertView;
+        MyHolder holder = null;
 
-        if(row == null) {
+            if (row == null) {
+                LayoutInflater inflater =((Activity) context).getLayoutInflater();
+                holder = new MyHolder();
+                row = inflater.inflate(R.layout.custom_list_activity2, parent, false);
 
-            row = inflater.inflate(R.layout.custom_list_activity, parent, false);
+                holder.brand = (TextView) row.findViewById(R.id.brandtv);
+                holder.product = (TextView) row.findViewById(R.id.producttv);
+                holder.quant = (TextView) row.findViewById(R.id.quanttv);
 
-            rowArray.get(position).brand = (EditText) row.findViewById(R.id.brandET);
-            rowArray.get(position).product = (EditText) row.findViewById(R.id.productET);
-            rowArray.get(position).quant = (EditText) row.findViewById(R.id.numET);
-            rowArray.get(position).addbtn = (Button) row.findViewById(R.id.addBtn);
+                row.setTag(holder);
 
-            row.setTag(rowArray.get(position));
+            } else {
+                holder = (MyHolder) row.getTag();
+            }
+
+        //set the textview values to the data collected from the edittexts
+        if(rowlist.get(position).brand != null) {
+            holder.brand.setText(rowlist.get(position).brand);
+            holder.product.setText(rowlist.get(position).product);
+            holder.quant.setText(rowlist.get(position).quantity);
         }
+
         return row;
     }
 
     public static class MyHolder {
-        EditText brand;
-        EditText product;
-        EditText quant;
-        Button addbtn;
+       TextView brand;
+       TextView product;
+       TextView quant;
     }
+
+
+
 }

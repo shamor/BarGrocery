@@ -23,6 +23,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.project.sam.bargrocery.MainActivity" />
+            android:windowSoftInputMode="adjustPan";
         </activity>
         <activity
             android:name=".Results"
