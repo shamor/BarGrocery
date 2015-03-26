@@ -1,17 +1,33 @@
 package com.project.sam.bargrocery;
 
+import android.database.Cursor;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
 
 
 public class Results extends ActionBarActivity {
+    private MyDatabaseHelper mDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
+
+        Cursor c = null;
+       // mDatabaseHelper.query(MyDatabaseHelper.TABLE_ITEMS, MyDatabaseHelper.COL_BRAND);
+        String[] from = new String[]{MyDatabaseHelper.COL_BRAND, MyDatabaseHelper.COL_PRODUCT};
+        int[] to = { android.R.id.text1, android.R.id.text2 };
+
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2, c, from, to, 0);
+
+        ListView listView = (ListView) findViewById(R.id.listView2);
+
+     //  listView.setAdapter(adapter);
     }
 
 

@@ -108,7 +108,8 @@
         android:layout_toLeftOf="@+id/addBtn"
         android:layout_toStartOf="@+id/addBtn"
         android:layout_alignBottom="@+id/addBtn"
-        android:layout_below="@+id/shoplistText" />
+        android:layout_below="@+id/shoplistText"
+        android:inputType="number" />
 
     <Button
         android:layout_width="wrap_content"

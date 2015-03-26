@@ -55,7 +55,7 @@ public class MyListAdapter extends ArrayAdapter {
         if(rowlist.get(position).brand != null) {
             holder.brand.setText(rowlist.get(position).brand);
             holder.product.setText(rowlist.get(position).product);
-            holder.quant.setText(rowlist.get(position).quantity);
+            holder.quant.setText(rowlist.get(position).quantity.toString());
         }
 
         return row;

@@ -1,6 +1,8 @@
 package com.project.sam.bargrocery;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import  com.project.sam.bargrocery.controllers.*;
+import com.project.sam.modelclases.Items;
 
 
 import java.util.ArrayList;
@@ -16,19 +20,23 @@ import java.util.List;
 
 
 public class ShoppingList extends Activity {
+    private MyDatabaseHelper mDatabaseHelper;
 
     List<stringHolder> rows = new ArrayList<stringHolder>();
-    private  MyListAdapter adapter;
+    List<Items> items = new ArrayList<Items>();
+    List<Integer> quantities = new ArrayList<Integer>();
+    private MyListAdapter adapter;
     stringHolder sh = new stringHolder();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_shopping_list);
         ListView lv = (ListView) findViewById(R.id.listView);
 
         //associate an adapter with the listview
-        adapter = new MyListAdapter(this,rows);
+        adapter = new MyListAdapter(this, rows);
         lv.setAdapter(adapter);
 
 
@@ -37,7 +45,14 @@ public class ShoppingList extends Activity {
         //Submit the shopping list button
         submitButton.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v){
+            public void onClick(View v) {
+
+                sendList sl = new sendList();
+                try {
+                    sl.postList(items, quantities);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 Intent intent = new Intent(getApplicationContext(), Results.class);
                 startActivity(intent);
             }
@@ -49,18 +64,23 @@ public class ShoppingList extends Activity {
      * Add a shopping list item to the listview whenever the add button is pressed
      * @param v
      */
-    public void addRowhandler(View v){
+    public void addRowhandler(View v) {
 
         //associate the edittexts from the shopping list xml to values
         EditText b = (EditText) findViewById(R.id.brandET);
         EditText p = (EditText) findViewById(R.id.productET);
         EditText n = (EditText) findViewById(R.id.numET);
 
-        //pull the values from the edittexts and add to the rows array
+        //pull the values from the edittexts and add to the rows array for the adpater
         stringHolder sh = new stringHolder();
         sh.brand = b.getText().toString();
         sh.product = p.getText().toString();
-        sh.quantity = n.getText().toString();
+        sh.quantity = Integer.parseInt(n.getText().toString());
+
+        //Now add them to items and quantities list for the postrequest
+        Items newItem = new Items(sh.brand,sh.product);
+        items.add(newItem);
+        quantities.add(sh.quantity);
 
         //reset Edittexts
         b.setText("");
@@ -99,11 +119,13 @@ public class ShoppingList extends Activity {
 
     /**
      * simple class to hold information about each row in a shopping list
-     * May be changed later inorder to create a groceryitem class
+     * May be changed later in order to create a groceryitem class
      */
-    public class stringHolder{
+    public class stringHolder {
         String brand;
         String product;
-        String quantity;
+        Integer quantity;
     }
 }
+
+
