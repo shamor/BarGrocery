@@ -1,29 +1,31 @@
 package com.project.sam.bargrocery;
 
 import android.app.Activity;
-import android.content.ClipData;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.AsyncTask;
+import android.os.Looper;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import  com.project.sam.bargrocery.controllers.*;
-import com.project.sam.modelclases.Items;
-
-
+import android.widget.Toast;
+import com.project.sam.bargrocery.controllers.*;
 import java.util.ArrayList;
 import java.util.List;
+import modelclasses.*;
+
 
 
 public class ShoppingList extends Activity {
-    private MyDatabaseHelper mDatabaseHelper;
 
+    PriceAssociation[] result = null;
     List<stringHolder> rows = new ArrayList<stringHolder>();
-    List<Items> items = new ArrayList<Items>();
+    List<Item> items = new ArrayList<Item>();
+
     List<Integer> quantities = new ArrayList<Integer>();
     private MyListAdapter adapter;
     stringHolder sh = new stringHolder();
@@ -38,8 +40,6 @@ public class ShoppingList extends Activity {
         //associate an adapter with the listview
         adapter = new MyListAdapter(this, rows);
         lv.setAdapter(adapter);
-
-
         Button submitButton = (Button) findViewById(R.id.submitBtn);
 
         //Submit the shopping list button
@@ -47,16 +47,20 @@ public class ShoppingList extends Activity {
 
             public void onClick(View v) {
 
-                sendList sl = new sendList();
-                try {
-                    sl.postList(items, quantities);
-                } catch (Exception e) {
-                    e.printStackTrace();
+               Item[] itemL = items.toArray(new Item[items.size()]);
+
+               new MyTask().execute(itemL);
+
+                if(result!=null) {
+                    Toast.makeText(ShoppingList.this, result[0].getLocation().toString(), Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(ShoppingList.this, "Could not find any items matches.", Toast.LENGTH_SHORT).show();
                 }
                 Intent intent = new Intent(getApplicationContext(), Results.class);
                 startActivity(intent);
             }
         });
+
 
     }//onCreate()
 
@@ -78,7 +82,7 @@ public class ShoppingList extends Activity {
         sh.quantity = Integer.parseInt(n.getText().toString());
 
         //Now add them to items and quantities list for the postrequest
-        Items newItem = new Items(sh.brand,sh.product);
+        Item newItem = new Item(sh.brand,sh.product);
         items.add(newItem);
         quantities.add(sh.quantity);
 
@@ -125,6 +129,22 @@ public class ShoppingList extends Activity {
         String brand;
         String product;
         Integer quantity;
+    }
+
+   // public PriceAssociation[] postList(List<Item> itemList, List<Integer> quants) throws URISyntaxException,  IOException {
+    class MyTask extends AsyncTask<Item[],Integer,PriceAssociation[]> {
+
+        @Override
+        protected PriceAssociation[] doInBackground(Item[]... items) {
+            sendList sl = new sendList();
+            try {
+                result = sl.postList(items[0]);
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+            return result;
+        }
     }
 }
 

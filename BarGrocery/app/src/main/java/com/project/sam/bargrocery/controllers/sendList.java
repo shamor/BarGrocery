@@ -1,9 +1,11 @@
 package com.project.sam.bargrocery.controllers;
 
 
+import android.util.Log;
+
+
 import com.project.sam.bargrocery.JSON;
-import com.project.sam.modelclases.Items;
-import com.project.sam.modelclases.PriceAssociation;
+import modelclasses.*;
 
 import java.io.StringWriter;
 import java.net.URI;
@@ -11,39 +13,38 @@ import java.net.URISyntaxException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.HttpStatus;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIUtils;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 
 /**
+ * Controller to send a shopping list to the database and then receive the cheapest prices for items
  * Created by Samantha Hamor on 3/13/2015.
  */
 public class sendList  {
-    public PriceAssociation[] postList(List<Items> itemList, List<Integer> quants) throws URISyntaxException,  IOException {
-        return makePostRequest(itemList, quants);
+    public PriceAssociation[] postList(Item[] itemList) throws URISyntaxException,  IOException {
+        return makePostRequest(itemList);
     }
 
-    public PriceAssociation[] makePostRequest(List<Items> itemList, List<Integer> quants) throws URISyntaxException, IOException {
+    public PriceAssociation[] makePostRequest(Item[] itemList) throws URISyntaxException, IOException {
         // Create HTTP client
         HttpClient client = new DefaultHttpClient();
 
-        // Construct request
-        HttpPost httpPost = new HttpPost("http://10.0.2.2:8081/list"); // 10.0.2.2 is localhost's IP address in Android emulator
+        PriceAssociation[] pa = new PriceAssociation[10];
+        pa[0] = new PriceAssociation(0,1.99,"TEST");
+        URI uri = URIUtils.createURI("http", "10.0.3.2", 8080, "/list/", null, null);// 10.0.2.2 is localhost's IP address in Android emulator
 
-        if(!itemList.isEmpty() && !quants.isEmpty()){
+        // Construct request
+        HttpPost httpPost = new HttpPost(uri);
+
+        if(itemList.length != 0){
 
             StringWriter sw = new StringWriter();
             JSON.getObjectMapper().writeValue(sw, itemList);
@@ -53,18 +54,23 @@ public class sendList  {
             reqEntity.setContentType("application/json");
             httpPost.setEntity(reqEntity);
 
+            Log.i("CON", "items sent off: " + itemList[0].getBrand().toString() +" , " + itemList[0].getProduct().toString()) ;
+
             // Execute request
             HttpResponse response = client.execute(httpPost);
+            Log.i("CON", "Sent executed");
 
             if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK){
                 HttpEntity en = response.getEntity();
+                Log.i("CON", "items returned");
                 return JSON.getObjectMapper().readValue(en.getContent(), PriceAssociation[].class);
             }else{
-                return null;
+                Log.i("CON", "Nothing was found in the database");
+                return pa;
             }
         }
-
-        return null;
+        Log.i("CON", "End of class reached");
+        return pa;
 
     }
 }

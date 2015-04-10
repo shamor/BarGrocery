@@ -1,0 +1,5 @@
+package modelclasses;
+
+public class PriceAssociation {
+
+}

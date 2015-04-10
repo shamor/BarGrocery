@@ -1,1 +1,1 @@
-include ':app', ':backend', ':modelclases'
+include ':app', ':libs'
