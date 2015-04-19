@@ -21,21 +21,32 @@ public class FakeDatabase implements IDatabase {
         //FakeDatabase info holders
         Item = new ArrayList<Item>();
         prices = new ArrayList<PriceAssociation>();
-        Item item = new Item("brandtest", "producttest");
-        item.setId(0);
-        PriceAssociation pa = new PriceAssociation(0, 1.00, "The Market");
-        pa.setPriceInfoId(0);
-        Item.add(item);
-        prices.add(pa);
-        Id = 1;
-        PId = 1;
+        Item item0 = new Item("brandtest", "producttest");
+        Item item1 = new Item("bt", "pt");
+        Item item2 = new Item("b", "p");
+        item0.setId(0);
+        item1.setId(1);
+        item2.setId(2);
+        Item.add(item0);
+        Item.add(item1);
+        Item.add(item2);
+        Id = 3;
+        PriceAssociation pa0 = new PriceAssociation(0, 1.00, "The Market");
+        PriceAssociation pa1 = new PriceAssociation(1, 1.20, "The Shop");
+        PriceAssociation pa2 = new PriceAssociation(2, 1.23, "The Shop");
+        pa0.setPriceInfoId(0);
+        pa1.setPriceInfoId(1);
+        pa2.setPriceInfoId(2);
+        prices.add(pa0);
+        prices.add(pa1);
+        prices.add(pa2);
+        PId = 3;
     }
     
     @Override
     public PriceAssociation cheapestPrice(Item item){
-    	System.out.printf("TEST3\n");
-    	PriceAssociation cheapest = new PriceAssociation(-1, 10000000.00,"");
-    	if(item != null){
+    	PriceAssociation cheapest = new PriceAssociation(-1, 10000000.00,"NONE");
+    	if(getItem(item.getBrand(), item.getProduct()) != null){
 	       int id = getItem(item.getBrand(), item.getProduct()).getId();
 	        for(PriceAssociation pa : prices){
 	            if(pa.getItemId() == id && (pa.getPrice() < cheapest.getPrice())){
@@ -48,7 +59,6 @@ public class FakeDatabase implements IDatabase {
     
     @Override
     public List<PriceAssociation> cheapestAll(Item[] ItemList){
-    	System.out.printf("TEST2\n");
         List<PriceAssociation> allPrices = new ArrayList<PriceAssociation>();
         if(ItemList != null){
 	        for(Item i : ItemList){
@@ -68,9 +78,7 @@ public class FakeDatabase implements IDatabase {
     
     @Override
     public Item getItem(String brand, String product){
-    	System.out.printf("TEST4\n");
         for(Item i : Item){
-        	System.out.printf("Item is: " + i.getProduct().toString() + ", " + i.getBrand().toString());
             if(i.getProduct().equals(product) && i.getBrand().equals(brand)){
                 return i;
             }

@@ -15,7 +15,7 @@
     android:layout_alignParentTop="true"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
-    tools:context="com.project.sam.bargrocery.ShoppingList">
+    tools:context="com.project.sam.bargrocery.Pages.ShoppingList">
 
 
     <TextView
@@ -50,7 +50,8 @@
         android:textSize="24dp"
         android:textStyle="bold"
         android:typeface="sans"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        android:layout_margin="5dp" />
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -63,7 +64,6 @@
         android:typeface="sans"
         android:layout_weight="2"
         android:padding="2dp"
-        android:focusable="true"
         android:ems="4"
         android:editable="true"
         android:enabled="true"
@@ -85,7 +85,6 @@
         android:layout_weight="3"
         android:padding="2dp"
         android:ems="7"
-        android:focusable="true"
         android:layout_toLeftOf="@+id/numET"
         android:layout_toRightOf="@+id/brandET"
         android:layout_toEndOf="@+id/brandET"
@@ -104,7 +103,6 @@
         android:layout_weight="1"
         android:padding="2dp"
         android:ems="2"
-        android:focusable="true"
         android:layout_toLeftOf="@+id/addBtn"
         android:layout_toStartOf="@+id/addBtn"
         android:layout_alignBottom="@+id/addBtn"
@@ -121,8 +119,6 @@
         android:textSize="20dp"
         android:typeface="sans"
         android:padding="2dp"
-        android:onClick="addRowhandler"
-        android:focusable="false"
         android:layout_below="@+id/shoplistText"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />

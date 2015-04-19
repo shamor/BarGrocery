@@ -10,6 +10,10 @@ public class PriceAssociation {
     private int itemId;
     private double price;
     private String location;
+    
+    public PriceAssociation(){
+    	
+    }
 
    public PriceAssociation(int itemId, double price, String location){
         this.itemId = itemId;

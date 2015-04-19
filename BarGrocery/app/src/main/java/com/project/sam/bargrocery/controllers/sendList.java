@@ -4,7 +4,7 @@ package com.project.sam.bargrocery.controllers;
 import android.util.Log;
 
 
-import com.project.sam.bargrocery.JSON;
+import com.project.sam.bargrocery.Utilities.JSON;
 import modelclasses.*;
 
 import java.io.StringWriter;
@@ -21,7 +21,6 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.IOException;
-import java.util.List;
 
 
 /**
@@ -37,8 +36,6 @@ public class sendList  {
         // Create HTTP client
         HttpClient client = new DefaultHttpClient();
 
-        PriceAssociation[] pa = new PriceAssociation[10];
-        pa[0] = new PriceAssociation(0,1.99,"TEST");
         URI uri = URIUtils.createURI("http", "10.0.3.2", 8080, "/list/", null, null);// 10.0.2.2 is localhost's IP address in Android emulator
 
         // Construct request
@@ -54,8 +51,6 @@ public class sendList  {
             reqEntity.setContentType("application/json");
             httpPost.setEntity(reqEntity);
 
-            Log.i("CON", "items sent off: " + itemList[0].getBrand().toString() +" , " + itemList[0].getProduct().toString()) ;
-
             // Execute request
             HttpResponse response = client.execute(httpPost);
             Log.i("CON", "Sent executed");
@@ -65,12 +60,12 @@ public class sendList  {
                 Log.i("CON", "items returned");
                 return JSON.getObjectMapper().readValue(en.getContent(), PriceAssociation[].class);
             }else{
-                Log.i("CON", "Nothing was found in the database");
-                return pa;
+                Log.i("CON", "Error occured in transmission");
+                return null;
             }
         }
-        Log.i("CON", "End of class reached");
-        return pa;
+        Log.i("CON", "Error Occured: end of class");
+        return null;
 
     }
 }

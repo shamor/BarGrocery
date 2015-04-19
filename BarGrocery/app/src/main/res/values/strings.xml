@@ -6,6 +6,7 @@
     <string name="title_activity_shopping_list">Shopping List</string>
     <string name="activity_shopping_list_promt">What would you like to buy today?</string>
     <string name="title_activity_results">Results</string>
+    <string name="title_activity_report">Price Report</string>
     <string name="welcome">Welcome to BarGrocery</string>
     <string name="brand">Brand</string>
     <string name="product">Product</string>

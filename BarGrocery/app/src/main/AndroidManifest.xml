@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".Pages.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,21 +19,29 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ShoppingList"
+            android:name=".Pages.ShoppingList"
             android:label="@string/title_activity_shopping_list"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".Pages.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.project.sam.bargrocery.MainActivity" />
+                android:value=".Pages.MainActivity" />
             android:windowSoftInputMode="adjustPan";
         </activity>
         <activity
-            android:name=".Results"
+            android:name=".Pages.Results"
             android:label="@string/title_activity_results"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".Pages.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.project.sam.bargrocery.MainActivity" />
+                android:value=".Pages.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Pages.ReportPrice"
+            android:label="@string/title_activity_report"
+            android:parentActivityName=".Pages.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Pages.MainActivity" />
         </activity>
     </application>
 

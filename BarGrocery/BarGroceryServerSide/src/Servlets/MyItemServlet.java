@@ -11,6 +11,7 @@ import JSON.JSON;
 import modelclasses.Item;
 import modelclasses.PriceAssociation;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
@@ -59,26 +60,25 @@ public class MyItemServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	
-    	System.out.printf("TEST0\n");
     	
-    	Item[] itemsList1 = new Item[1];
-    	itemsList1[0] = new Item("brandtest", "producttest"); 
-    	itemsList1[0].setId(0);
-    	
-    	
-    	//Item[] itemsList = JSON.getObjectMapper().readValue(req.getReader(), Item[].class);
-    	
-    	System.out.printf("TEST1\n");
-    	
-        //given a list return another list of the cheapest prices
-        getLowPricesController lpc = new getLowPricesController();
-        List<PriceAssociation> priceList = lpc.getlowPrice(itemsList1);
-
-        // Set status code and content type
-        resp.setStatus(HttpServletResponse.SC_OK);
-        resp.setContentType("application/json");
-        PriceAssociation[] pL = priceList.toArray(new PriceAssociation[priceList.size()]);
-        // write out the return object
-        JSON.getObjectMapper().writeValue(resp.getWriter(), pL);
+    	try {
+	    	Item[] itemsList = JSON.getObjectMapper().readValue(req.getReader(), Item[].class);
+	    	
+	    	
+	        //given a list return another list of the cheapest prices
+	        getLowPricesController lpc = new getLowPricesController();
+	        List<PriceAssociation> priceList = lpc.getlowPrice(itemsList);
+	
+	        // Set status code and content type
+	        resp.setStatus(HttpServletResponse.SC_OK);
+	        resp.setContentType("application/json");
+	        PriceAssociation[] pL = priceList.toArray(new PriceAssociation[priceList.size()]);
+	        // write out the return object
+	        JSON.getObjectMapper().writeValue(resp.getWriter(), pL);
+    	} catch (Throwable e) {
+    		System.err.println("Error occurred");
+    		e.printStackTrace();
+    	}
     }
+
 }

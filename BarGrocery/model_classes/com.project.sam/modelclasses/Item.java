@@ -13,6 +13,10 @@ public class Item {
     private String brand;
     private String product;
     private int Id;
+    
+    public Item() {
+    	
+    }
 
     public Item(String brand, String product){
         this.brand = brand;
