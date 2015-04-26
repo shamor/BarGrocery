@@ -12,11 +12,11 @@ import java.util.List;
 public interface IDatabase {
     //function headers for database operations
 
-    public void addItem(Item item);
+    public Item addItem(Item item);
     public Item getItem(String brand, String product);
     public void addPriceInfo(PriceAssociation pa);
     public PriceAssociation getPriceInfo(int itemId);
-    public PriceAssociation cheapestPrice(Item item);
+    public PriceAssociation[] cheapestPrice(Item item);
     public List<PriceAssociation> cheapestAll(Item[] itemsList);
 
 }

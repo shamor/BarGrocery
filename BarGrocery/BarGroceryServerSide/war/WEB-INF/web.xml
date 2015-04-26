@@ -9,12 +9,28 @@
 		<servlet-name>MyItemServlet</servlet-name>
 		<servlet-class>Servlets.MyItemServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>MyPriceServlet</servlet-name>
+		<servlet-class>Servlets.MyPriceServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>MyShopListServlet</servlet-name>
+		<servlet-class>Servlets.MyShopListServlet</servlet-class>
+	</servlet>
 	
 	
 	<!-- Servlet mappings (mapping of paths to servlets). -->
 	<servlet-mapping>
 	    <servlet-name>MyItemServlet</servlet-name>
+		<url-pattern>/item/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>MyShopListServlet</servlet-name>
 		<url-pattern>/list/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>MyPriceServlet</servlet-name>
+		<url-pattern>/price/*</url-pattern>
 	</servlet-mapping>
 	
 </web-app>

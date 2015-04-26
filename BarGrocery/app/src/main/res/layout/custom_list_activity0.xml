@@ -1,25 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:id="@+id/linearL1"
     android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true">
+    android:layout_alignParentStart="true"
+    android:paddingLeft="40dp"
+    android:weightSum="1">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="134dp"
         android:layout_height="match_parent"
         android:background="#fff0fff1"
-        android:textColor="#fff0fff1"
+        android:textColor="#ff0a85d8"
         android:textSize="16dp"
+        android:layout_weight="1.0"
         android:typeface="sans"
-        android:id="@+id/productTV"
+        android:id="@+id/itemTV"
         android:padding="4dp"
-        android:layout_weight="0.74"
-        android:layout_marginLeft="25dp"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp" />
+
+    <TextView
+        android:layout_width="134dp"
+        android:layout_height="match_parent"
+        android:background="#fff0fff1"
+        android:textColor="#ff0a85d8"
+        android:textSize="16dp"
+        android:layout_weight="0.5"
+        android:typeface="sans"
+        android:id="@+id/priceTV"
+        android:padding="4dp"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp" />
 
 </LinearLayout>

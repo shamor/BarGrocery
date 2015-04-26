@@ -26,7 +26,7 @@ import modelclasses.*;
 public class ShoppingList extends Activity {
 
     public static PriceAssociation[] result;
-    public static List<Item> items = new ArrayList<Item>();
+    public static List<Item> items;
     public static PriceAssociation[] tester = new PriceAssociation[3];
     public static List<Integer> quantities = new ArrayList<Integer>();
     private MyListAdapter adapter;
@@ -38,7 +38,7 @@ public class ShoppingList extends Activity {
 
         setContentView(R.layout.activity_shopping_list);
         ListView lv = (ListView) findViewById(R.id.listView);
-
+        items = new ArrayList<Item>();
         //associate an adapter with the listview
         adapter = new MyListAdapter(this, items,quantities);
         lv.setAdapter(adapter);

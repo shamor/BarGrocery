@@ -49,9 +49,12 @@ public class MyListAdapter2 extends BaseExpandableListAdapter {
                 convertView = inflater.inflate(R.layout.custom_list_activity0, null);
             }
 
-            TextView itemText = (TextView) convertView.findViewById(R.id.productTV);
-
-            itemText.setText("Hello");
+            TextView itemText = (TextView) convertView.findViewById(R.id.itemTV);
+            TextView priceText = (TextView) convertView.findViewById(R.id.priceTV);
+            String Istring = itemPrice.substring(0,itemPrice.indexOf("$")-1);
+            String Pstring = itemPrice.substring(itemPrice.indexOf("$"));
+            itemText.setText(Istring);
+            priceText.setText(Pstring);
             return convertView;
         }
 
@@ -80,10 +83,20 @@ public class MyListAdapter2 extends BaseExpandableListAdapter {
                 convertView = infalInflater.inflate(R.layout.custom_list_activity1,
                         null);
             }
-            TextView total = (TextView) convertView.findViewById(R.id.TotalTV);
+
+            TextView total = (TextView) convertView.findViewById(R.id.totalTV);
+            TextView store = (TextView) convertView.findViewById(R.id.storeTV);
             total.setFocusable(false);
-            total.setTypeface(null, Typeface.BOLD);
-            total.setText(StorenameTotal);
+            store.setFocusable(false);
+            String Sstring = StorenameTotal.substring(0,StorenameTotal.indexOf("$")-1);
+            String Tstring;
+            if(StorenameTotal.contains("Unavailable")) {
+                Tstring = "No Prices Listed";
+            }else{
+               Tstring = StorenameTotal.substring(StorenameTotal.indexOf("$"));
+            }
+            store.setText(Sstring);
+            total.setText(Tstring);
             return convertView;
         }
 

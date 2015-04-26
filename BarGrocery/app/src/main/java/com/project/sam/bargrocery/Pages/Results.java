@@ -13,6 +13,7 @@ import com.project.sam.bargrocery.R;
 import com.project.sam.bargrocery.Utilities.MyListAdapter2;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -92,7 +93,11 @@ public class Results extends Activity {
                     if (stringAssoications.get(i).Store.equals(p.getLocation())) {
                        add = false;
                        stringAssoications.get(i).total += (p.getPrice() * quants.get(currentItem));
-                       stringAssoications.get(i).itemsAndPrices.add(items.get(currentItem).getProduct() + "      $" + p.getPrice());
+                        if(!p.getLocation().equals("Unavailable")) {
+                            stringAssoications.get(i).itemsAndPrices.add(items.get(currentItem).getProduct() + " " + toDollar(p.getPrice()));
+                        }else{
+                            stringAssoications.get(i).itemsAndPrices.add(items.get(currentItem).getProduct() + "      $--.--");
+                        }
                         break;
                     }
                 }
@@ -101,16 +106,17 @@ public class Results extends Activity {
                 if (add == true) {
                     headerHolder holder = new headerHolder();
                     holder.Store = p.getLocation();
-                    holder.total += p.getPrice() * quants.get(currentItem);
-                    holder.itemsAndPrices.add(items.get(currentItem).getProduct() + "      $" + p.getPrice());
+                    if(!p.getLocation().equals("Unavailable")) {
+                        holder.total += p.getPrice() * quants.get(currentItem);
+                        holder.itemsAndPrices.add(items.get(currentItem).getProduct() + "      " + toDollar(p.getPrice()));
+                   }else{
+                       holder.itemsAndPrices.add(items.get(currentItem).getProduct() + "      $--.--");
+                   }
                     stringAssoications.add(holder);
                 }
             }
             for(headerHolder h : stringAssoications){
-                DecimalFormat df = new DecimalFormat("#.##");
-                String dx=df.format(h.total);
-                h.total=Double.valueOf(dx);
-                headers.add(h.Store + "      $" + h.total);
+                headers.add(h.Store + "      " + toDollar(h.total));
             }
 
         }
@@ -121,9 +127,7 @@ public class Results extends Activity {
         itemMap = new LinkedHashMap<String, List<String>>();
             int i = 0;
             for(String g : headers){
-                Toast.makeText(Results.this, "Item price: " + stringAssoications.get(i).itemsAndPrices.get(i) , Toast.LENGTH_SHORT).show();
-
-                itemMap.put(g,stringAssoications.get(i).itemsAndPrices);
+                  itemMap.put(g,stringAssoications.get(i).itemsAndPrices);
                 i++;
             }
 
@@ -149,5 +153,16 @@ public class Results extends Activity {
         public String Store;
         public double total;
         public List<String> itemsAndPrices = new ArrayList<String>();
+    }
+
+    private String toDollar(double val){
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+        String temp = formatter.format(val);
+        return temp;
+    }
+
+    private  List<headerHolder> sortResuts(){
+        List<headerHolder> temp = stringAssoications;
+        return temp;
     }
 }

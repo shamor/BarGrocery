@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;Servlets.MyItemServlet&apos; to &apos;MyShopListServlet&apos;&#x0D;&#x0A;- Original project: &apos;BarGroceryServerSide&apos;&#x0D;&#x0A;- Original element: &apos;Servlets.MyItemServlet&apos;&#x0D;&#x0A;- Renamed element: &apos;Servlets.MyShopListServlet&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;MyItemServlet&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;Servlets{MyItemServlet.java[MyItemServlet" matchStrategy="1" name="MyShopListServlet" qualified="false" references="true" similarDeclarations="false" stamp="1430082829187" textual="false" version="1.0"/>
+</session>

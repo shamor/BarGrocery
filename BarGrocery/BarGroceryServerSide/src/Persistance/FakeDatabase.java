@@ -34,27 +34,37 @@ public class FakeDatabase implements IDatabase {
         PriceAssociation pa0 = new PriceAssociation(0, 1.00, "The Market");
         PriceAssociation pa1 = new PriceAssociation(1, 1.20, "The Shop");
         PriceAssociation pa2 = new PriceAssociation(2, 1.23, "The Shop");
+        PriceAssociation pa3 = new PriceAssociation(2, 1.40, "The Market");
+        PriceAssociation pa4 = new PriceAssociation(1, 2.00, "The Market");
         pa0.setPriceInfoId(0);
         pa1.setPriceInfoId(1);
         pa2.setPriceInfoId(2);
+        pa3.setPriceInfoId(3);
+        pa4.setPriceInfoId(4);
         prices.add(pa0);
         prices.add(pa1);
         prices.add(pa2);
-        PId = 3;
+        prices.add(pa3);
+        prices.add(pa4);
+        PId = 5;
     }
     
     @Override
-    public PriceAssociation cheapestPrice(Item item){
-    	PriceAssociation cheapest = new PriceAssociation(-1, 10000000.00,"NONE");
+    public PriceAssociation[] cheapestPrice(Item item){
+    	PriceAssociation cheapest = new PriceAssociation(-1, 1000000,"Unavailable");
+    	PriceAssociation[] plist = new PriceAssociation[5];
+    	plist[0] = cheapest; //have a default value so that the item is still in the plist
+    	int numPA = 0; 
     	if(getItem(item.getBrand(), item.getProduct()) != null){
 	       int id = getItem(item.getBrand(), item.getProduct()).getId();
 	        for(PriceAssociation pa : prices){
 	            if(pa.getItemId() == id && (pa.getPrice() < cheapest.getPrice())){
-	                cheapest = pa;
+	                plist[numPA] = pa; 
+	                numPA++;
 	            }
 	        }
     	}
-        return cheapest;
+        return plist;
     }
     
     @Override
@@ -62,7 +72,12 @@ public class FakeDatabase implements IDatabase {
         List<PriceAssociation> allPrices = new ArrayList<PriceAssociation>();
         if(ItemList != null){
 	        for(Item i : ItemList){
-	            allPrices.add(cheapestPrice(i));
+	        	PriceAssociation[] pL = cheapestPrice(i);
+	        	for(int j = 0; j<5; j++){
+	        		if(pL[j] !=null){
+	        			allPrices.add(pL[j]);
+	        		}
+	        	}
 	        }
         }
         
@@ -71,9 +86,15 @@ public class FakeDatabase implements IDatabase {
     }
     
     @Override
-    public void addItem(Item item){
-            item.setId(Id++);
-            Item.add(item);
+    public Item addItem(Item item){
+        
+           if(getItem(item.getBrand(),item.getProduct()) ==null){  
+        	   item.setId(Id++);   
+        	   Item.add(item);
+        	   return item;
+            }else{
+	           	return getItem(item.getBrand(),item.getProduct());
+            }
     }
     
     @Override
@@ -90,7 +111,9 @@ public class FakeDatabase implements IDatabase {
     @Override
     public void addPriceInfo(PriceAssociation pa){
         pa.setPriceInfoId(PId++);
-        prices.add(pa);
+        if(!priceCheck(pa)){
+        	prices.add(pa);
+        }
     }
 
     @Override
@@ -104,5 +127,12 @@ public class FakeDatabase implements IDatabase {
     }
 
 
+    public boolean priceCheck(PriceAssociation p){
+    	 for(PriceAssociation price : prices){
+             if(price.getItemId() == p.getItemId() && price.getLocation().equals(p.getLocation()) && price.getPrice() == p.getPrice()){
+                 return true;
+             }
+         }return false;
+    }
 
 }
