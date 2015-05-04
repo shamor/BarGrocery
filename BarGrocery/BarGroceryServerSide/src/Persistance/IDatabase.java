@@ -12,7 +12,7 @@ import java.util.List;
 public interface IDatabase {
     //function headers for database operations
 
-    public Item addItem(Item item);
+    public void addItem(Item item);
     public Item getItem(String brand, String product);
     public void addPriceInfo(PriceAssociation pa);
     public PriceAssociation getPriceInfo(int itemId);

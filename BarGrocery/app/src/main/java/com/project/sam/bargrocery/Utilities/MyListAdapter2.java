@@ -3,6 +3,7 @@ package com.project.sam.bargrocery.Utilities;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,8 +92,10 @@ public class MyListAdapter2 extends BaseExpandableListAdapter {
             String Sstring = StorenameTotal.substring(0,StorenameTotal.indexOf("$")-1);
             String Tstring;
             if(StorenameTotal.contains("Unavailable")) {
+                total.setTextSize(16);
                 Tstring = "No Prices Listed";
             }else{
+                total.setTextSize(24);
                Tstring = StorenameTotal.substring(StorenameTotal.indexOf("$"));
             }
             store.setText(Sstring);

@@ -86,14 +86,11 @@ public class FakeDatabase implements IDatabase {
     }
     
     @Override
-    public Item addItem(Item item){
-        
+    public void addItem(Item item){
+        	//Check to see if the item is already in the database
            if(getItem(item.getBrand(),item.getProduct()) ==null){  
         	   item.setId(Id++);   
         	   Item.add(item);
-        	   return item;
-            }else{
-	           	return getItem(item.getBrand(),item.getProduct());
             }
     }
     

@@ -2,4 +2,6 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="JSON.JSON"/>
 <fullyQualifiedTypeName name="Controllers.addPriceController"/>
+<fullyQualifiedTypeName name="modelclasses.Item"/>
+<fullyQualifiedTypeName name="Controllers.getItemController"/>
 </qualifiedTypeNameHistroy>

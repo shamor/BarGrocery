@@ -27,7 +27,6 @@ public class ReportPrice extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Toast.makeText(ReportPrice.this, "Not implemted.", Toast.LENGTH_SHORT).show();
         setContentView(R.layout.submit_activity);
 
         final EditText storetext = (EditText) findViewById(R.id.storeET);

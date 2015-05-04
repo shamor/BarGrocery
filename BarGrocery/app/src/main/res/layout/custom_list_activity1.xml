@@ -13,12 +13,12 @@
         android:layout_height="match_parent"
         android:background="#fff6ff9f"
         android:textColor="#ff0a85d8"
-        android:layout_weight="2.5"
+        android:layout_weight="2.0"
         android:textSize="24dp"
         android:typeface="sans"
         android:id="@+id/storeTV"
         android:padding="5dp"
-        android:layout_marginLeft="5dp" />
+        android:layout_marginLeft="7dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -30,6 +30,6 @@
         android:typeface="sans"
         android:layout_toLeftOf="@+id/storeTV"
         android:id="@+id/totalTV"
-    />
+        android:gravity="center_vertical" />
 </LinearLayout>
 

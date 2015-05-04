@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import modelclasses.Item;
 import Controllers.AddItemController;
+import Controllers.getItemController;
 import JSON.JSON;
 
 public class MyItemServlet extends HttpServlet {
@@ -20,12 +21,15 @@ public class MyItemServlet extends HttpServlet {
 	        
 	        // Use a GetItem controller to find the item in the database
 	        AddItemController controller = new AddItemController();
-	       Item temp = controller.addItem(item);
+	        controller.addItem(item);
 	    
 	        // Set status code and content type
 	        resp.setStatus(HttpServletResponse.SC_OK);
 	        resp.setContentType("application/json");
-
+	        
+	        getItemController gi = new getItemController();
+	        Item temp = gi.getItem(item.getBrand(), item.getProduct());
+	        
 	        // writing the operation out.
 	        JSON.getObjectMapper().writeValue(resp.getWriter(), temp);
 	    }

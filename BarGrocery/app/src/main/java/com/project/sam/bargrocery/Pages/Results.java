@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 import com.project.sam.bargrocery.R;
 import com.project.sam.bargrocery.Utilities.MyListAdapter2;
+import com.project.sam.bargrocery.Utilities.QuickSort;
 
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -40,9 +40,6 @@ public class Results extends Activity {
         setContentView(R.layout.activity_results);
 
         pb =( ProgressBar) findViewById(R.id.progressBar);
-
-
-
        expListView = (ExpandableListView) findViewById(R.id.expandableListView);
 
        //wait for information to be returned from shoppinglist
@@ -65,19 +62,14 @@ public class Results extends Activity {
 
     }
     private void createHeaders() {
-        headers = new ArrayList<String>();
-
-        //add items to the resultsArr/ store name area
+        headers = new ArrayList<String>();//holds headers for the Expandable View
         if(resultsArr == null) {
             headers = null;
             Toast.makeText(Results.this, "Your list must contain at least one item.", Toast.LENGTH_SHORT).show();
-        }else if (resultsArr.length == 1) {
-            headers.add(resultsArr[0].getLocation() + "          $" + resultsArr[0].getPrice());
         } else {
 
             int CurrentPriceId = -1;
             int currentItem = -1;
-
 
             for (PriceAssociation p : resultsArr) {
                 if (p.getItemId() != CurrentPriceId) {//make sure to keep the results lined up with the items
@@ -103,34 +95,39 @@ public class Results extends Activity {
                 }
 
                 //If a store does not exist in the list then add it
+                headerHolder holder = new headerHolder();
                 if (add == true) {
-                    headerHolder holder = new headerHolder();
+
                     holder.Store = p.getLocation();
                     if(!p.getLocation().equals("Unavailable")) {
                         holder.total += p.getPrice() * quants.get(currentItem);
-                        holder.itemsAndPrices.add(items.get(currentItem).getProduct() + "      " + toDollar(p.getPrice()));
+                        holder.itemsAndPrices.add(items.get(currentItem).getProduct() + " " + toDollar(p.getPrice()));
                    }else{
-                       holder.itemsAndPrices.add(items.get(currentItem).getProduct() + "      $--.--");
+                       holder.itemsAndPrices.add(items.get(currentItem).getProduct() + " $--.--");
                    }
                     stringAssoications.add(holder);
                 }
             }
+
+            //Sort the array so that the lowest price is shown first
+           QuickSort qs = new QuickSort();
+            qs.sort(stringAssoications);
+
+            //add the headers for the expandable View
             for(headerHolder h : stringAssoications){
-                headers.add(h.Store + "      " + toDollar(h.total));
+                headers.add(h.Store + " " + toDollar(h.total));
             }
 
         }
     }
 
     private void createChildren() {
-
         itemMap = new LinkedHashMap<String, List<String>>();
             int i = 0;
-            for(String g : headers){
-                  itemMap.put(g,stringAssoications.get(i).itemsAndPrices);
+            for (String g : headers) {
+                itemMap.put(g, stringAssoications.get(i).itemsAndPrices);
                 i++;
             }
-
     }
 
     @Override
@@ -154,15 +151,13 @@ public class Results extends Activity {
         public double total;
         public List<String> itemsAndPrices = new ArrayList<String>();
     }
-
+    /*
+        *   method to convert a double into a dollar format
+     */
     private String toDollar(double val){
         NumberFormat formatter = NumberFormat.getCurrencyInstance();
         String temp = formatter.format(val);
         return temp;
     }
 
-    private  List<headerHolder> sortResuts(){
-        List<headerHolder> temp = stringAssoications;
-        return temp;
-    }
 }

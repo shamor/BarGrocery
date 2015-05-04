@@ -9,8 +9,8 @@ import modelclasses.Item;
  * Created by Samantha Hamor on 3/22/2015.
  */
 public class AddItemController {
-    public Item addItem(Item item){
+    public void addItem(Item item){
         IDatabase db = Database.getInstance();
-        return db.addItem(item);
+        db.addItem(item);
     }
 }
