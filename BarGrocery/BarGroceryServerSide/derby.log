@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Mon May 04 14:31:03 EDT 2015:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-014d-2032-1764-000006269188 
+Tue May 05 15:26:25 EDT 2015:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-014d-258b-25ba-000006280750 
 on database directory C:\Users\sam\Documents\GitHub\BarGrocery\BarGrocery\BarGroceryServerSide\barGrocerydb.db with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
 Loaded from file:/C:/Users/sam/Documents/GitHub/BarGrocery/BarGrocery/BarGroceryServerSide/CS320_Derby/lib/derby.jar
 java.vendor=Oracle Corporation

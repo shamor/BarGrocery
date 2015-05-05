@@ -16,7 +16,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by sam on 4/11/2015.
+ * Created by Samantha Hamor on 4/11/2015.
+ * Custom List adapter for use with an Expandable View
  */
 public class MyListAdapter2 extends BaseExpandableListAdapter {
 
@@ -50,12 +51,18 @@ public class MyListAdapter2 extends BaseExpandableListAdapter {
                 convertView = inflater.inflate(R.layout.custom_list_activity0, null);
             }
 
+            //Use String operations to break out the item from it's price
             TextView itemText = (TextView) convertView.findViewById(R.id.itemTV);
             TextView priceText = (TextView) convertView.findViewById(R.id.priceTV);
+
+            //item
             String Istring = itemPrice.substring(0,itemPrice.indexOf("$")-1);
-            String Pstring = itemPrice.substring(itemPrice.indexOf("$"));
             itemText.setText(Istring);
+
+            //price
+            String Pstring = itemPrice.substring(itemPrice.indexOf("$"));
             priceText.setText(Pstring);
+
             return convertView;
         }
 
@@ -85,14 +92,19 @@ public class MyListAdapter2 extends BaseExpandableListAdapter {
                         null);
             }
 
+            //Use String operations to break out the storename from it's  total price
             TextView total = (TextView) convertView.findViewById(R.id.totalTV);
             TextView store = (TextView) convertView.findViewById(R.id.storeTV);
+
+            //by default the textViews get the focus which will not allow
+            // the user to expand the children associated with it
             total.setFocusable(false);
             store.setFocusable(false);
+
             String Sstring = StorenameTotal.substring(0,StorenameTotal.indexOf("$")-1);
             String Tstring;
-            if(StorenameTotal.contains("Unavailable")) {
-                total.setTextSize(16);
+            if(StorenameTotal.contains("Unavailable")) { //if the store is unavailable, then don't show a valid price
+                total.setTextSize(12);
                 Tstring = "No Prices Listed";
             }else{
                 total.setTextSize(24);

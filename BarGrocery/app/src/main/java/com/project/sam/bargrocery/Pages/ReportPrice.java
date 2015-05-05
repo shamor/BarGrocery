@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.project.sam.bargrocery.controllers.postItem;
 import com.project.sam.bargrocery.controllers.postPrice;
 import com.project.sam.bargrocery.R;
-import com.project.sam.bargrocery.controllers.sendList;
 
 import modelclasses.*;
 
@@ -36,6 +35,7 @@ public class ReportPrice extends Activity {
         final EditText pricetext = (EditText) findViewById(R.id.priceET);
 
         Button reportButton = (Button) findViewById(R.id.reporttBtn);
+
         reportButton.setOnClickListener(new View.OnClickListener(){
 
             public void onClick(View v) {
@@ -82,7 +82,7 @@ public class ReportPrice extends Activity {
         });
 
     }
-    //My AsyncTask implementation
+    //My AsyncTask implementation for posting an item
     private class MyItemTask extends AsyncTask<Item,Integer,Item> {
 
         @Override
@@ -97,7 +97,7 @@ public class ReportPrice extends Activity {
             return returnedItem;
         }
     }
-    //My AsyncTask implementation
+    //My AsyncTask implementation for posting a new price association
     private class MyPriceTask extends AsyncTask<PriceAssociation,Integer,Integer> {
 
         @Override

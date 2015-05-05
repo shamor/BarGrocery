@@ -15,6 +15,7 @@ import modelclasses.PriceAssociation;
 
 /**
  * Created by Samantha Hamor on 3/16/2015.
+ * Creates my BarGrocery Database with a few preloaded values
  */
 
 public class RealDatabase implements IDatabase {
@@ -268,7 +269,6 @@ public class RealDatabase implements IDatabase {
 						}
 						
 						item.setId(generatedKeys.getInt(1));
-						System.out.println("New Item: " + item.getBrand() + " , " + item.getProduct() + " has id " + item.getId());
 					}
 					return true;
 				} finally {
@@ -336,7 +336,6 @@ public class RealDatabase implements IDatabase {
 					}
 					
 					pa.setPriceInfoId(generatedKeys.getInt(1));
-					System.out.println("New Price Association has id " + pa.getPriceInfoId() + " for item id #: " + pa.getItemId());
 					
 					return true;
 				} finally {
@@ -384,7 +383,7 @@ public class RealDatabase implements IDatabase {
 			public PriceAssociation[] execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
 				ResultSet resultSet = null;
-				
+
 				try {
 					stmt = conn.prepareStatement("select priceAssociations.* from priceAssociations where priceAssociations.itemid = ?");
 					stmt.setInt(1, itemId);
@@ -397,7 +396,13 @@ public class RealDatabase implements IDatabase {
 
 						result.add(pa);
 					}
-
+					
+					
+					//Sort the array before it is added so that the lowest prices
+					//are near the beginning of the array
+					QuickSort q = new QuickSort();
+					q.sort(result);
+					
 					return result.toArray(new PriceAssociation[result.size()]);
 				} finally {
 					DBUtil.closeQuietly(resultSet);
@@ -434,17 +439,66 @@ public class RealDatabase implements IDatabase {
 		List<PriceAssociation> allPrices = new ArrayList<PriceAssociation>();
         if(ItemList != null){
 	        for(Item i : ItemList){
+	        	
 	        	PriceAssociation[] pL = cheapestPrice(i);
-
 	        	for(int j = 0; j<5; j++){
 	        		if(pL[j] != null){
 	        			allPrices.add(pL[j]);
 	        		}
 	        	}
 	        }
+        }else{
+        	System.out.println("List was null.");
         }
         
         return allPrices;
 	}
 
+	public class QuickSort {
+	    private List<PriceAssociation>  arr;
+	    private int size;
+	
+	    public void sort(List<PriceAssociation> pL) {
+	        if (pL == null || pL.size() == 0) {
+	            return;
+	        }
+	        this.arr = pL;
+	        size = pL.size();
+	        quickSort(0, size - 1);
+	    }
+	
+	    private void quickSort(int lowerIndex, int higherIndex) {
+	        int i = lowerIndex;
+	        int j = higherIndex;
+	        // calculate pivot number, I am taking pivot as middle index number
+	        double pivot = arr.get(lowerIndex+(higherIndex-lowerIndex)/2).getPrice();
+	        // Divide array in half and check pivot value
+	        while (i <= j) {
+	            while (arr.get(i).getPrice() < pivot) {
+	                i++;
+	            }
+	            while (arr.get(j).getPrice() > pivot) {
+	                j--;
+	            }
+	            if (i <= j) {
+	                exchangeTotals(i, j);
+	                i++;
+	                j--;
+	            }
+	        }
+	        // call quickSort() method recursively
+	        if (lowerIndex < j){
+	            quickSort(lowerIndex, j);
+	        }if (i < higherIndex){
+	            quickSort(i, higherIndex);
+	        }
+	    }
+	
+	    private void exchangeTotals(int i, int j) {
+	    	PriceAssociation temp = arr.get(i);
+	        arr.set(i, arr.get(j));
+	        arr.set(j, temp);
+	    }
+	
+	}
 }

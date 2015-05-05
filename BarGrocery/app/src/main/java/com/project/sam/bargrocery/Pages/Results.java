@@ -10,8 +10,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.project.sam.bargrocery.R;
+import com.project.sam.bargrocery.Utilities.MergeSort;
 import com.project.sam.bargrocery.Utilities.MyListAdapter2;
-import com.project.sam.bargrocery.Utilities.QuickSort;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -61,6 +61,11 @@ public class Results extends Activity {
        expListView.setAdapter(expListAdapter);
 
     }
+    /*
+        * This function assembles header strings for
+        * use in the Expandable View's group positions
+        * It also sorts the results for the user
+     */
     private void createHeaders() {
         headers = new ArrayList<String>();//holds headers for the Expandable View
         if(resultsArr == null) {
@@ -109,18 +114,35 @@ public class Results extends Activity {
                 }
             }
 
-            //Sort the array so that the lowest price is shown first
-           QuickSort qs = new QuickSort();
-            qs.sort(stringAssoications);
 
+
+            MergeSort m = new MergeSort();
+
+            //Sort by price
+            m.sort(stringAssoications, 0);
+            //Sort by the number of items each store contains
+            m.sort(stringAssoications, 1);
+
+            headerHolder noStore = null;
             //add the headers for the expandable View
             for(headerHolder h : stringAssoications){
-                headers.add(h.Store + " " + toDollar(h.total));
+                if(!h.Store.equals("Unavailable")) {
+                    headers.add(h.Store + " " + toDollar(h.total));
+                }else{
+                    noStore = h;
+                }
             }
+            if(noStore != null){
+                stringAssoications.remove(noStore);
+                headers.add(noStore.Store + " " + toDollar(noStore.total));
+                stringAssoications.add(noStore);
+            }
+
 
         }
     }
 
+    //simply associates the headers to their children using a Map
     private void createChildren() {
         itemMap = new LinkedHashMap<String, List<String>>();
             int i = 0;
@@ -146,14 +168,14 @@ public class Results extends Activity {
     }
 
 
+    //Simple class which stores three data values needed for use in the Expandable view
     public static class headerHolder{
         public String Store;
         public double total;
         public List<String> itemsAndPrices = new ArrayList<String>();
     }
-    /*
-        *   method to convert a double into a dollar format
-     */
+
+    //method to convert a double into a dollar format
     private String toDollar(double val){
         NumberFormat formatter = NumberFormat.getCurrencyInstance();
         String temp = formatter.format(val);

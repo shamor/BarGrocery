@@ -1,9 +1,6 @@
 package Servlets;
 
-import Controllers.AddItemController;
 import Controllers.addPriceController;
-import Controllers.getItemController;
-import Controllers.getPriceAssociationController;
 import JSON.JSON;
 import modelclasses.PriceAssociation;
 
